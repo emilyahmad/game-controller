@@ -250,7 +250,7 @@ The actual dimensions of the remote
 I think I'll go for a classic controller look, like this
 
 <p align="center">
-<img src="https://github.com/emilyahmad/game-controller/blob/main/images/classic-controller.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/classic-controller.png" width=50% alt="White Wii Classic Controller with a D-pad, two analog sticks, Select/Home/Start buttons, and x, y, a, b face buttons">
 <br>
 <sub>Wii classic controller</sub>
 </p>
@@ -268,7 +268,7 @@ The IR camera/image processing is really cool but we won't need it for Super Mar
 Should I just use the easy to program XIAO ESP32 or something that's more fitting for this device?
 
 <p align="center">
-<img src="https://github.com/emilyahmad/game-controller/blob/main/images/prototype-design.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/prototype-design.png" width=50% alt="Mockup of a white Emoolii controller with grips, one joystick, yellow x and y buttons, amber a and b buttons, four player LEDs, and a yellow Toad mushroom outline over the speaker grille">
 <br>
 <sub>Yellow toad/general design</sub>
 </p>
@@ -280,15 +280,55 @@ I guess I'll just 3D print everything
 <table align="center">
   <tr>
     <td align="center" valign="bottom">
-      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/blue-toad-design.png" width=200 alt="macOS Bluetooth settings listing the controller as Emoolii Remote under Nearby Devices">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/blue-toad-design.png" width=350 alt="Mockup of a white Emoolii controller with one joystick, blue x and y buttons, red a and b buttons, and a blue Toad mushroom outline">
       <br>
-      <sub>Yellow toad controller (Lopa)</sub>
+      <sub>Blue toad controller (Lopa)</sub>
     </td>
     <td>&emsp;&emsp;</td>
     <td align="center" valign="bottom">
-      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/peach-design.gif" width=350 height=225 alt="Demo of the prototype controller's push buttons working in the emulator">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/peach-design.png" width=350 alt="Mockup of a pink Emoolii controller with a yellow joystick, blue Select/Home/Start buttons, pink 1, 2, and b buttons, a white a button, and a white crown outline over the speaker grille">
       <br>
       <sub>Peach controller (Sarah)</sub>
     </td>
   </tr>
 </table>
+
+I need to consider the shaking movement, the Wii remote uses a three axis linear accelerometer ADXL330,which has 10% sensitivity and is rated for accelerations of +/- 3g
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/motion-sensor-info.png" width=50% alt="Mockup of a white Emoolii controller with grips, one joystick, yellow x and y buttons, amber a and b buttons, four player LEDs, and a yellow Toad mushroom outline over the speaker grille">
+<br>
+</p>
+
+I guess I can just install the accelerometer and have the data read out from a certain pin, just like how I did with the push buttons and sync certain points to.
+
+### Shake and speaker
+> The type of acceleration doesn't matter, it just needs a quick burst of acceleration that is strong enough within a short time window.
+
+> Instead of continuously streaming accelerometer data, the user will shake the remote, which will trigger a button press, then I will map this button press to "shake" in emulator.
+
+> Unfortunately, it doesn't look like I can separate the audio effects originally intended for the remote (like 1 UP) to come from the remote, it'll just come from my laptop's audio. I could still do the rumble feature, 
+
+### Controller case
+Back to the controller case, I want it to be plastic or silicon smooth. The actual remotes use ABS emulsion polymerization.
+> I can just print with resin for a finished look, or I can just chemically smooth it, use epoxy, or just sand.
+
+> I can even just print the same controller case in white, and make a silicon case for the peach controller.
+
+> I kind want silicon button cap set and thumb grip caps
+
++ [Button caps](https://www.aliexpress.us/item/3256812674561376.html?spm=a2g0o.productlist.main.25.2137475euf5rL3&algo_pvid=b2b2c4f7-99d9-4939-8653-8bd555a3d852&algo_exp_id=b2b2c4f7-99d9-4939-8653-8bd555a3d852-24&pdp_ext_f=%7B%22order%22%3A%2234%22%2C%22eval%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21USD%214.08%211.09%21%21%2127.03%217.21%21%402101f43b17944554264975748e0d4d%2112000059519527073%21sea%21US%217544465919%21ABX%211%210%21n_tag%3A-29910%3Bd%3A8af3de5f%3Bm03_new_user%3A-29895%3BpisId%3A5000000218165389&curPageLogUid=HzIJFqYAouQX&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005012860876128%7C_p_origin_prod%3A)<br>
++ [Joystick caps](https://www.amazon.com/eXtremeRate-PlayVital-Joystick-Silicone-Controller/dp/B08KS5Y1JF/ref=sr_1_3_sspa?crid=IKO1YFSATDL5&dib=eyJ2IjoiMSJ9.8eKh4-ApYXMSm0EZ8MmPB0_bRifa58hw9BPfGyvNJLVRD3QorkgdrYbZMVftyhjgarjVZonRzuwdITGFlmm9myqjdI7uZhHkrfXX0AuFhVUu3zSCSAzUilpFHyNVXuHWPv_3Fr6OGT1675Jc1xfDM1xu-036ikL--HNHaz_NbgPXLGFV44w6yBS1-I0Szv1ZVbPsoxnYtGueiZ25mBxnWQZMBjyT80vRoPDudeQzl4Y.KS4kHpMuDMKMXneulFo-9Vv-8Y4qnoqm_RfagbqSiiM&dib_tag=se&keywords=silicone%2Bjoystick%2Bcap&qid=1794455737&sprefix=silicon%2Bjoystick%2Bca%2Caps%2C138&sr=8-3-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&th=1)
+
+Peach
++ Yellow thumb grip
++ Dark cyan blue menu button caps
++ Darker pink and white button caps
+
+I'll make the peach controller then decide if I want to continue to the toad controllers. 
+
+
+### More features
++ I still like the idea of having small LEDs light up under the keys as they're pressed.
++ I also need to figure out how the speaker/noise features work with Mario Bros since that's the main game I'll be playing. I can even make all the audio come out of the controller's speaker.
++ Could be kind of funny to make a controller that uses real motion next.
