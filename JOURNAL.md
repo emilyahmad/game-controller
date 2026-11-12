@@ -1,4 +1,4 @@
-# October 20: Planning (45 m)
+# October 20: Planning (1 hour)
 Wii remote design idea (pink theme for the case, like the peach-themed Wii Remotes)
 
 <table align="center">
@@ -27,7 +27,7 @@ Going to start prototyping with a Raspberry Pi Pico, switches, a joystick and a 
 
 Shoot, I'll need to get header pins for the pico first.
 
-# November 5: More planning ()
+# November 5: More planning (45m)
 
 works with esp32
 
@@ -58,7 +58,7 @@ Probably will have to download this library [ESP32-BLE-Gamepad](https://github.c
 
 Some micro LEDs would be really cool too (for showing P1/P2), these are 0603s 
 
-# Novemebr 6: More planning
+# Novemebr 6: More planning (6 hours)
 
 Honestly Bluetooth is better than having to have connect over a cable
 
@@ -225,7 +225,7 @@ Only need a MEMs accelerometer (no gyroscope)
 
 Speaker would be cool but not as important
 
-# November 9: Started Schematic (15m)
+# November 9: Started Schematic (45m)
 
 <p align="center">
 <img src="https://github.com/emilyahmad/game-controller/blob/main/images/starting-schematic.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
@@ -235,7 +235,7 @@ Speaker would be cool but not as important
 
 Input pins into MCU, output pins into components. B (back off remote) will be the joystick push button (D2, change this to a less useful GPIO). I need to figure out where the accelerometer will wire up to (AC), adding LED's could be cool too
 
-# November 10: Thinking about components (5m)
+# November 10: Thinking about components (30m)
 
 I'll stick with the joystick instead of the fulcrum and switches at least for v1, I like the the idea of LEDs under the buttons lighting up on clicks, maybe a buzzer too?
 
@@ -245,7 +245,7 @@ MicroPython or C++? MicroPython is used for testing (run code instantly without 
 
 The actual dimensions of the remote
 
-# November 11: More thinking about components
+# November 11: More thinking about/researching components (2 hours 22m)
 
 I think I'll go for a classic controller look, like this
 
@@ -332,3 +332,33 @@ I'll make the peach controller then decide if I want to continue to the toad con
 + I still like the idea of having small LEDs light up under the keys as they're pressed.
 + I also need to figure out how the speaker/noise features work with Mario Bros since that's the main game I'll be playing. I can even make all the audio come out of the controller's speaker.
 + Could be kind of funny to make a controller that uses real motion next.
+
+# November 12: Deciding on components (2 hours)
+
+So the plan for now is, I'll print the controller case in resin (smooth) with holes for the buttons, player LED indicator, speaker/motor area, and joystick. I'll 3D print the buttons and joysticks as well, and consider getting silicone caps to cover them. I'll laser engrave the logo and button text.
+
+Eccentric rotating mass/off-center weight, coin is probably easier and safer.
+
+I'm mainly trying to finish using the components I already have. 
+
+### Components
++ **MCU:** Adafruit’s Feather ESP32-S3 would probably be ideal but I have these [ESP32 SuperMini](https://www.amazon.com/dp/B0GS283V6F?ref_=ppx_hzod_image_dt_b_fed_asin_title_0_1&th=1) instead<br>
+> Bluetooth LE (low energy, not classic) supported. Everything should work fine but the rumble might only work over USB.
+
++ **Battery:** has a LiPo connector, so you can plug in any 250 mAh or larger 3.7/4.2 V LiPo battery into the 2-pin JST-PH port to power the Feather and charge it from USB. I have a 3.7 V, 1800 mAh lithium-polymer pack, listed as 66.9 × 36.8 × 11.6 mm, 6.66 Wh (Nova part 654141)
+> No pin that returns battery voltage, but an I²C monitor on the board gives voltage and percentage. I'll just read it in.
+
+> Need: 2-pin JST-PH header and a slide switch in the + line
+
++ **Accelerometer:** Adafruit LIS3DH (product 2809): Three-axis, selectable ±2/4/8/16 g, I²C or SPI, with interrupt output and tap/double-tap detection
+
++ **Rumble motor:** [Adafruit’s Vibrating Mini Motor Disc](https://www.adafruit.com/product/1201?srsltid=AYCX9vLECxgzLwUvgzfyftA3W_y3e20z5GZM87cEF06OMaRzK9Ag2AhS)
+> I need a MOSFET motor driver (I'll go with the AO3400A)
+
++ Joystick
++ Push buttons: A, B, 1, 2, SELECT, HOME, START/LEDs
+> The emulator doesn't do the P1/P2 system, so I'll leave that out. I do want to have small LEDs light up on button presses. I will probably need expanders to do this. I can even use [LED tactile switches](https://hackaday.io/project/174738-kan-15-led-tactile-switch) or these [12 x 12 mms](https://www.amazon.com/Illuminated-Momentary-Multicolor-Raspberry-Industrial/dp/B0DLH9RZ13/ref=sr_1_3?crid=3UBL46H98A6GU&dib=eyJ2IjoiMSJ9.PA8e8SuXDZa9l7b1R3mnetqEXTfI3Usxyt7TSnQdVmWYOJKL46HYNk1YkeO8SA2BwgO4d8_7S1tO2AVcuQwllyy1ZnAwxGjpw-QY4r6r0rBdJd45aqJ4ykBnUwlLoG0BX-rVNfY3GUS-eXQrwCzAWz42YIjRMW3-L84xR5ps1kX0juOuEn92-yUG2RaxnwPi6Je5Uv51lpNWqAf3IBFygTdKdq-0UYYhPMrJX4zQlv4.wPOytfMwsCyk9ymP_Js59-lzRFR6NXn9TDl5uDXA7zQ&dib_tag=se&keywords=Illuminated+tact+switches&qid=1794513837&sprefix=illuminated+tact+switches%2Caps%2C122&sr=8-3)
+
+> Because these LED tactile switches are 12 x 12 mms, I might just save these for moving around and keep the menu, select, and home buttons are regular 6 x 6 mms?
+
+I'll start working on the schematic. I'll CAD the case/buttons before I look at the PCB.
