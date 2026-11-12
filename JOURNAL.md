@@ -4,13 +4,13 @@ Wii remote design idea (pink theme for the case, like the peach-themed Wii Remot
 <table align="center">
   <tr>
     <td align="center" valign="bottom">
-      <img src="./images/wii-remote-inspo.png" width="150" alt="Wii remote inspiration">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/wii-remote-inspo.png" width="150" alt="Pink Wii Remote alongside a grid of Wii Remotes in other colors and character themes">
       <br>
       <sub>Wii remote inspo</sub>
     </td>
     <td>&emsp;&emsp;</td>
     <td align="center" valign="bottom">
-      <img src="./images/custom-design.png" width="100" alt="custom controller design">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/custom-design.png" width="100" alt="Pink controller design sketch with a cross D-pad, large A button, three small center buttons, 1 and 2 buttons, and four player LEDs">
       <br>
       <sub>custom design</sub>
     </td>
@@ -49,7 +49,7 @@ For the prototype, I only have a joystick, but I want to use a cross-shaped D-pa
 
 For general 2D movement: the d-pad on top/case, fulcrum & four contact switches underneath
 <p align="center">
-<img src="https://content.instructables.com/FIC/55N0/KJUBPHXB/FIC55N0KJUBPHXB.png?_gl=1*jj7qbl*_ga*MTYwMjgzMzM3My4xNzkzOTQ0NjU5*_ga_NZSJ72N6RX*czE3OTM5NDQ2NTkkbzEkZzEkdDE3OTM5NDQ2NjQkajU1JGwwJGgw" width=50% alt="schematic wiring">
+<img src="https://content.instructables.com/FIC/55N0/KJUBPHXB/FIC55N0KJUBPHXB.png?_gl=1*jj7qbl*_ga*MTYwMjgzMzM3My4xNzkzOTQ0NjU5*_ga_NZSJ72N6RX*czE3OTM5NDQ2NTkkbzEkZzEkdDE3OTM5NDQ2NjQkajU1JGwwJGgw" width=50% alt="Example wiring schematic for an ESP32 BLE gamepad with push buttons">
 <br>
 <sub>example vid schematic</sub>
 </p>
@@ -72,7 +72,7 @@ I'll try both the tactile switches and the joystick for the prototype and see wh
 ### Prototyping
 
 <p align="center">
-<img src="images/emulator-controls.png" width=50% alt="emulator controls">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/emulator-controls.png" width=50% alt="Dolphin emulator Wii Remote controller settings showing buttons and D-pad mapped to keyboard and mouse keys">
 <br>
 <sub>emulator controls</sub>
 </p>
@@ -90,13 +90,13 @@ Wait in theory, I could even use an IR remote, maybe I'll try that next.
 <table align="center">
   <tr>
     <td align="center" valign="bottom">
-      <img src="./images/prototype-wiring.png" width=350 alt="Don't need resistors (using INPUT_PULLUP)">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/prototype-wiring.png" width=350 alt="Breadboard prototype with a Seeed XIAO ESP32-S3, three tactile push buttons, resistors, and a handheld analog joystick module">
       <br>
       <sub>Wii remote inspo</sub>
     </td>
     <td>&emsp;&emsp;</td>
     <td align="center" valign="bottom">
-      <img src="./images/serial-output.png" width=350 alt="Prints on change">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/serial-output.png" width=350 alt="Arduino IDE serial monitor printing button pressed and released events and joystick X/Y readings">
       <br>
       <sub>custom design</sub>
     </td>
@@ -109,13 +109,13 @@ Install ESP32-BLE-Gamepad library (lemmingDev), flashed [BleGamepad code](/code/
 <table align="center">
   <tr>
     <td align="center" valign="bottom">
-      <img src="./images/pairing.png" width=200 alt="Don't need resistors (using INPUT_PULLUP)">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/pairing.png" width=200 alt="macOS Bluetooth settings listing the controller as Emoolii Remote under Nearby Devices">
       <br>
       <sub>Pairing</sub>
     </td>
     <td>&emsp;&emsp;</td>
     <td align="center" valign="bottom">
-      <img src="./images/v1_demo.gif" width=350 height=225 alt="Prints on change">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/v1_demo.gif" width=350 height=225 alt="Demo of the prototype controller's push buttons working in the emulator">
       <br>
       <sub>Push buttons work, need to debug the joystick</sub>
     </td>
@@ -136,7 +136,7 @@ Debug 1: I set the center to (16384, 16384), also removed joystick push button c
 
 Yeah that didn't work, when I'm mapping the joystick controls, it senses when I pull the joystick in the right direction, but only allows me to select the default/back to the center position
 <p align="center">
-<img src="images/mapping-joystick.png" width=35% alt="Detects joystick should be at .5192 for up direction, but returns to .75 for detect input">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/mapping-joystick.png" width=35% alt="Dolphin Configure Input dialog with Full Axis 0+ selected reading 0.5192 for the joystick">
 <br>
 <sub>Detects joystick should be at .5192 for up direction, but returns to .75 for detect input</sub>
 </p>
@@ -144,7 +144,7 @@ Yeah that didn't work, when I'm mapping the joystick controls, it senses when I 
 Oh ok, I actually understand how the input mapping works.
 
 <p align="center">
-<img src="images/button-input-map.png" width=35% alt="Detects joystick should be at .5192 for up direction, but returns to .75 for detect input">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/button-input-map.png" width=35% alt="Dolphin Configure Input dialog mapping Button 0 to the A button, with Buttons 1 and 2 reading 1 while unpressed">
 <br>
 <sub>Mapping A button</sub>
 </p>
@@ -152,7 +152,7 @@ By default, the buttons are set to 1 (INPUT_PULLUP) so when we press on them it 
 
 I'm still figuring out the joystick
 <p align="center">
-<img src="images/joystick-debugging.png" width=35% alt="Detects joystick should be at .5192 for up direction, but returns to .75 for detect input">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/joystick-debugging.png" width=35% alt="Dolphin Configure Input dialog with Axis 0+ selected instead of the full axis, reading 0.03833">
 <br>
 <sub>Mapping A button</sub>
 </p>
@@ -165,13 +165,13 @@ Ok, I was able to actually diagnose the issue by playing, it constantly is sensi
 <!-- <table align="center">
   <tr>
     <td align="center" valign="bottom">
-      <img src="./images/joystick-issue1.gif" width=350 alt="Don't need resistors (using INPUT_PULLUP)">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/joystick-issue1.gif" width=350 alt="Gameplay where the character starts out ducking and moves left when only jump is pressed">
       <br>
       <sub>On joining round, bro is already ducking, also just pressing jump also moves him left</sub>
     </td>
     <td>&emsp;&emsp;</td>
     <td align="center" valign="bottom">
-      <img src="./images/joystick-issue2.gif" width=350 height=225 alt="Prints on change">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/joystick-issue2.gif" width=350 height=225 alt="Gameplay where pressing only A makes the screen scroll right on its own">
       <br>
       <sub>Just pressing A (automatically scrolling right - sometimes presses A unprompted)</sub>
     </td>
@@ -208,7 +208,7 @@ int scaleAxis(int raw, int center) {
 now it's flipped so I'll map Up/Down to +/- 1 and vice versa. Remapped, now left and right are swapped. Awesome, joystick works, now I need to change the way the sprint/power up/[1] button works, wait actually it's lowkey larp. Cuz now instead of having to hold down the [1] while sprinting, you can just click it once and it stays on. This also means power ups would constantly be shooting. I guess that's not always a good thing because you need to make sure you time it correctly.
 
 <p align="center">
-<img src="images/semi-finalized-input-map.png" width=35% alt="Detects joystick should be at .5192 for up direction, but returns to .75 for detect input">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/semi-finalized-input-map.png" width=35% alt="Dolphin input map with A, 1, and 2 mapped to controller buttons and the D-pad mapped to joystick axes 0 and 1">
 <br>
 <sub>Finalized input map</sub>
 </p>
@@ -216,9 +216,79 @@ now it's flipped so I'll map Up/Down to +/- 1 and vice versa. Remapped, now left
 I also want to check if I connect it to my phone/any other source of power, will it still work? It should becuase I'm connected over bluetooth?
 
 <p align="center">
-<img src="images/v2_demo.gif" width=50% alt="Detects joystick should be at .5192 for up direction, but returns to .75 for detect input">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/v2_demo.gif" width=50% alt="Gameplay demo with working joystick and button controls, played from a hotel room at Hackaday Supercon">
 <br>
-<sub>Cool runthrough (hotel for hackaday supercon)</sub>
+<sub>Cool runthrough (background is hotel for hackaday supercon)</sub>
 </p>
 
-Ok now I need to figure out the shaking, so maybe gyroscope and accelerometer?
+Only need a MEMs accelerometer (no gyroscope)
+
+Speaker would be cool but not as important
+
+# November 9: Started Schematic (15m)
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/starting-schematic.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
+<br>
+<sub>Starting schematic</sub>
+</p>
+
+Input pins into MCU, output pins into components. B (back off remote) will be the joystick push button (D2, change this to a less useful GPIO). I need to figure out where the accelerometer will wire up to (AC), adding LED's could be cool too
+
+# November 10: Thinking about components (5m)
+
+I'll stick with the joystick instead of the fulcrum and switches at least for v1, I like the the idea of LEDs under the buttons lighting up on clicks, maybe a buzzer too?
+
+Passive buzzer with Arduino tone command (only one at a time). Wiis use a speaker not buzzer. I could even make all the audio come out of it like a [bluetooth speaker](https://www.youtube.com/watch?v=FB5XqXd3KdY).
+
+MicroPython or C++? MicroPython is used for testing (run code instantly without waiting for firmware to recompile/upload), but deployed in C/C++ (faster)
+
+The actual dimensions of the remote
+
+# November 11: More thinking about components
+
+I think I'll go for a classic controller look, like this
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/classic-controller.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
+<br>
+<sub>Wii classic controller</sub>
+</p>
+
+But a peach/other character style. Because my sister and I will be the main users, I'll make one peach themed and the other blue toad.
+
+I'll figure out the actual component dimensions
+Joystick - 41 mm length × 25.36 mm width
+Push button - 6mm x 6mm
+
+The IR camera/image processing is really cool but we won't need it for Super Mario Bros.
+
+[Good information](https://www.youtube.com/watch?v=Reng4j4WrvA) on Wii remote's components.
+
+Should I just use the easy to program XIAO ESP32 or something that's more fitting for this device?
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/prototype-design.png" width=50% alt="Laptop on an airplane tray table with KiCad open, showing JOYSTICK global labels in the starting schematic">
+<br>
+<sub>Yellow toad/general design</sub>
+</p>
+
+I guess I'll just 3D print everything
++ SLS or MJF nylon gives a durable, matte shell with no visible layer lines for the 3D
++ buttons can be made from clear or tinted resin printing
+
+<table align="center">
+  <tr>
+    <td align="center" valign="bottom">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/blue-toad-design.png" width=200 alt="macOS Bluetooth settings listing the controller as Emoolii Remote under Nearby Devices">
+      <br>
+      <sub>Yellow toad controller (Lopa)</sub>
+    </td>
+    <td>&emsp;&emsp;</td>
+    <td align="center" valign="bottom">
+      <img src="https://github.com/emilyahmad/game-controller/blob/main/images/peach-design.gif" width=350 height=225 alt="Demo of the prototype controller's push buttons working in the emulator">
+      <br>
+      <sub>Peach controller (Sarah)</sub>
+    </td>
+  </tr>
+</table>
