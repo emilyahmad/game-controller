@@ -296,7 +296,7 @@ I guess I'll just 3D print everything
 I need to consider the shaking movement, the Wii remote uses a three axis linear accelerometer ADXL330,which has 10% sensitivity and is rated for accelerations of +/- 3g
 
 <p align="center">
-<img src="https://github.com/emilyahmad/game-controller/blob/main/images/motion-sensor-info.png" width=50% alt="Mockup of a white Emoolii controller with grips, one joystick, yellow x and y buttons, amber a and b buttons, four player LEDs, and a yellow Toad mushroom outline over the speaker grille">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/motion-sensor-info.png" width=50% alt="Dolphin emulator Motion Input tab showing Point, Accelerometer (up, down, left, right, forward, backward), and Gyroscope (pitch, roll, yaw) mappings">
 <br>
 </p>
 
@@ -333,7 +333,7 @@ I'll make the peach controller then decide if I want to continue to the toad con
 + I also need to figure out how the speaker/noise features work with Mario Bros since that's the main game I'll be playing. I can even make all the audio come out of the controller's speaker.
 + Could be kind of funny to make a controller that uses real motion next.
 
-# November 12: Deciding on components (2 hours)
+# November 12: Deciding on components (3 hours 3m)
 
 So the plan for now is, I'll print the controller case in resin (smooth) with holes for the buttons, player LED indicator, speaker/motor area, and joystick. I'll 3D print the buttons and joysticks as well, and consider getting silicone caps to cover them. I'll laser engrave the logo and button text.
 
@@ -352,13 +352,126 @@ I'm mainly trying to finish using the components I already have.
 
 + **Accelerometer:** Adafruit LIS3DH (product 2809): Three-axis, selectable ±2/4/8/16 g, I²C or SPI, with interrupt output and tap/double-tap detection
 
-+ **Rumble motor:** [Adafruit’s Vibrating Mini Motor Disc](https://www.adafruit.com/product/1201?srsltid=AYCX9vLECxgzLwUvgzfyftA3W_y3e20z5GZM87cEF06OMaRzK9Ag2AhS)
++ **Rumble motor:** [Adafruit’s Vibrating Mini Motor Disc](https://www.adafruit.com/product/1201?srsltid=AYCX9vLECxgzLwUvgzfyftA3W_y3e20z5GZM87cEF06OMaRzK9Ag2AhS), [cool video](https://www.youtube.com/watch?v=5avUvKLEiLs) on it, use a resistor to lower the vibration
 > I need a MOSFET motor driver (I'll go with the AO3400A)
 
 + Joystick
 + Push buttons: A, B, 1, 2, SELECT, HOME, START/LEDs
 > The emulator doesn't do the P1/P2 system, so I'll leave that out. I do want to have small LEDs light up on button presses. I will probably need expanders to do this. I can even use [LED tactile switches](https://hackaday.io/project/174738-kan-15-led-tactile-switch) or these [12 x 12 mms](https://www.amazon.com/Illuminated-Momentary-Multicolor-Raspberry-Industrial/dp/B0DLH9RZ13/ref=sr_1_3?crid=3UBL46H98A6GU&dib=eyJ2IjoiMSJ9.PA8e8SuXDZa9l7b1R3mnetqEXTfI3Usxyt7TSnQdVmWYOJKL46HYNk1YkeO8SA2BwgO4d8_7S1tO2AVcuQwllyy1ZnAwxGjpw-QY4r6r0rBdJd45aqJ4ykBnUwlLoG0BX-rVNfY3GUS-eXQrwCzAWz42YIjRMW3-L84xR5ps1kX0juOuEn92-yUG2RaxnwPi6Je5Uv51lpNWqAf3IBFygTdKdq-0UYYhPMrJX4zQlv4.wPOytfMwsCyk9ymP_Js59-lzRFR6NXn9TDl5uDXA7zQ&dib_tag=se&keywords=Illuminated+tact+switches&qid=1794513837&sprefix=illuminated+tact+switches%2Caps%2C122&sr=8-3)
 
+<p align="center">
+<img src="https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/51iDqGFVqpL.jpg" width=35% alt="Dimensioned drawing of a 12 x 12 x 7.3 mm PCB-mount tactile switch with footprint and hole spacing">
+<br>
+</p>
+
 > Because these LED tactile switches are 12 x 12 mms, I might just save these for moving around and keep the menu, select, and home buttons are regular 6 x 6 mms?
 
 I'll start working on the schematic. I'll CAD the case/buttons before I look at the PCB.
+
+### Schematic
++ [Supermini ESP32-S3](https://www.amazon.com/dp/B0GS283V6F?ref_=ppx_hzsearch_conn_dt_b_fed_asin_title_1&th=1), [THT footprint](https://www.snapeda.com/parts/ESP32-C3%20SuperMini_TH/Espressif%20Systems/view-part/?ref=search&t=Supermini%20ESP32-S3&ab_test_case=b)
++ I feel like the LED push buttons are going to look kind of tacky, so I'll stick with regular push buttons for version 1. Button_Switch_THT:SW_PUSH_6mm
++ Joystick [KY-023](https://www.snapeda.com/parts/KY-023/Joy-IT/view-part/?ref=search&t=KY-023&ab_test_case=b), I can't find symbols or footprints so I'll just use a 5-pin header. The current pins stick out at an angle, so I'll solder on new ones that go straight down, symbol: Connector_Generic:Conn_01x05 and footprint: Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical
++ Accelerometer [LIS3DH](https://www.snapeda.com/parts/LIS3DH/STMicroelectronics/view-part/?ref=search&t=LIS3DH&ab_test_case=b)
+<p align="center">
+<img src="https://solderingmind.com/wp-content/uploads/2025/12/AO3400-pinout.webp" width=50% alt="AO3400 N-channel MOSFET pinout in a SOT-23 package: pin 1 gate, pin 2 source, pin 3 drain">
+<br>
+</p>
+
++ Rumble motor wired via a 2-pin JST connector, AO3400A for the motor driver
++ 2-pin JST connector for LiPo and rumble motor symbol: Connector_Generic:Conn_01x02, footprint: Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical
+
+# November 13: More schematicing (55m)
+
+### AO3400A
+The MOSFET looks something like this
+<p align="center">
+<img src="https://europe1.discourse-cdn.com/arduino/original/4X/e/5/e/e5ef127c7f1e1a50824bef1bb47ef4ed6ac8b01c.jpeg" width=40% alt="MOSFET low-side switch circuit with a 2.2k current-limiting resistor to the gate, a 10k pull-down resistor from gate to ground, and the source tied to ground">
+<br>
+</p>
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/accelerometer-wiring.png" width=50% alt="KiCad schematic of the rumble motor driver: D10 through a 100 ohm resistor to the AO3400A gate, a 100k pull-down to ground, motor connector J1 between +3.3V and the drain, and the source to ground">
+<br>
+<sub>Wired accelerometer</sub>
+</p>
+
+### LIS3DH
+<p align="center">
+<img src="https://images0.cnblogs.com/blog/679006/201501/222245421252340.png" width=40% alt="LIS3DH I2C wiring schematic with 10uF and 0.1uF decoupling capacitors and 4.7k pull-up resistors from SDA and SCL to 3.3V">
+<br>
+</p>
+
+# November 15; More schematicing again (20m)
+The LIS3DH uses SDO and SDI 
++ SDA/SDI maps to GPIO6/D4
+
+Realized I was looking at C3 not S3 pinout, here's the right one:
+<p align="center">
+<img src="https://europe1.discourse-cdn.com/arduino/original/4X/b/4/1/b41cb5d47221f72dce90d2227369a7aa359fa2d0.jpeg" width=50% alt="ESP32 Super Mini pinout showing 5V, GND, 3V3, GPIO0-10, 20, and 21, with ADC, SPI, I2C (SDA on GPIO8, SCL on GPIO9), and UART pins labeled">
+<br>
+</p>
+
+# November 16: More schematicing again again (1 hr 36m)
+I have to add 4.7k resistors on SDA, also learned
++ In series: signal runs through resistor
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/in-series-ex.png" width=35% alt="KiCad schematic with GPIO8 and GPIO9 each connected through a 4.7k resistor (R3, R4) in series to the LIS3DH SDI and SPC pins">
+<br>
+</p>
+We need it to be a pull-up though so it needs to be a side-branch like this
+Why: I2C can only pull wires down to ground, so somebody needs to push it up to 3.3V (stays high by default, chips overpower by pulling it low)
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/right-pull-ups.png" width=35% alt="KiCad schematic with 4.7k pull-up resistors (R3, R4) branching from the GPIO8/SDI and GPIO9/SPC lines up to +3.3V">
+<br>
+</p>
+
+Woah I had to check hidden pins (View). The hidden NC 2 and 3 pins are hidden stacked ground pins are a shortcut instead of drawing a bunch of individual ground pins around the body of an IC, so only a single representative pin is left visible.
+
+How the SDO address works:
++ Serial Data Output used in Serial Peripherial Interface/SPI communication, carries data out of a device and sends it back to the controller
+
+Bro. I just realized I'm using the C3 symbol not the S3. Some [goat on reddit](https://www.reddit.com/r/esp32/comments/1r6h63m/i_made_a_esp32s3supermini_footprint/) made the [symbol](https://drive.google.com/file/d/1tKU6Rd1gkrMeU9wQ5iBrM1uTmObK_AH6/view) and [footprint](https://drive.google.com/file/d/1Ia2y5KgLuTCjiLleW4krdE9uNQLiYWtD/view)
+
+Also I guess you only need one power flag.
++ SDA/Serial Data Line carries actual data bits (device address) and works with
+> Addresses solve shared-line problem (every device physically sees every electrical signal)
+
+> Without them, MCUs would need a dedicated wire (Chip Select pin) running to every device on the board
++ SCL/Serial Clock Line to provide the timing pusles to synchronize data transfer.
+
+We're treating SDO as SA0 because Pin 7 can
++ select the I2C address (I2C communication protocol) giving it the default 0x18 address or
++ provide serial data output (SPI)
+> Stuck-At-ero/logic fault model where a specific signal line is permamently stuck at 0 regardless of input
+
+It still won't let us just wire it to GND, so in Symbol Editor
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/SDO-pin.png" width=50% alt="KiCad Symbol Editor close-up of LIS3DH pin 7, SDO/SA0, with its electrical type set to Output">
+<br>
+</p>
+and change Pin 7 from output to input.
+
+Oh dang, there's two LIS3DH symbols? I'll use the one on the left instead of the one I was using earlier (right).
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/two-LIS3DH.png" width=50% alt="Two LIS3DH symbols side by side: the imported U1 on the left with combined pin names like SDA/SDI/SDO and SDO/SA0, and the built-in U3 on the right with separate SDO, SDI, SPC pins and NC pins 2 and 3">
+<br>
+</p>
+I was using the built in symbol instead of the one I imported.
+
+Also reminder decoupling capacitor briefly discharges to supply that sudden current need
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/updated.png" width=50% alt="Updated LIS3DH schematic: GPIO9 to SCL/SPC and GPIO8 to SDA/SDI/SDO with 4.7k pull-ups (R5, R6) to +3.3V, CS tied to +3.3V, SDO/SA0 and RES tied to ground, unused INT and ADC pins marked no-connect, and 10uF and 0.1uF decoupling capacitors on VDD">
+<br>
+<sub>No errors</sub>
+</p>
+
+Also the footprint has a weird name like PQFN50P300X300X100-16N.kicad_mod (I could rename)
+
+We're just using pin headers instead of a joystick footprint. The joystick is GND, 5V, X (GPIO4), Y (GPIO5), Switch (GPIO6) so I wired the female pin headers accordingly.
+
+Doesn't mean we have to supply 5V even though it's labeled so. Because X & Y axes are potentiometers, their output voltage follows the supply voltage. I'll check an old photo where I used it to see if I supplied 3.3 or 5V. Sweet I used 3.3V (from the XIAO C3) and it worked.
+
+Also confirming I'm using the Switch on the joystick as the B button, this is GPIO6. Also I'll use the ```PinSocket_1x05_P2.54mm_Horizontal``` footprint.
+
+Time to work on the push buttons + their LEDs.

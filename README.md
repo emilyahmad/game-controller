@@ -3,8 +3,6 @@
 <br>
 </p>
 
-<h1 align="center">Emoolii Remote</h1>
-
 A custom game controller for playing Super Mario Bros on Dolphin Emulator. For now, just a breaboard, joystick, some push buttons and ESP32-BLE-Gamepad
 
 <p align="center">
