@@ -11,6 +11,13 @@ A custom game controller for playing Super Mario Bros on Dolphin Emulator. For n
 <sub>Runthrough with my prototype</sub>
 </p>
 
+### Schematic
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/schematic.png" width=50% alt="Full KiCad schematic of the controller: ESP32-S3 SuperMini with labeled GPIOs, LIS3DH accelerometer on I2C with pull-ups and decoupling capacitors, AO3400A rumble motor driver with a 1N5819 diode, KY-023 joystick connector, and seven tactile switches (A, B, 1, 2, Select, Home, Start) each with an LED and 680 ohm resistor">
+<br>
+<sub>Runthrough with my prototype</sub>
+</p>
+
 ### Components
 
 Pin assignments assume the **ESP32-C3 SuperMini** (GPIO numbers, not silkscreen labels). Strapping pins GPIO8/9 are used for I²C (they idle high, which is safe at boot), and GPIO2 is a button with a pull-up, so don't hold HOME while powering on.

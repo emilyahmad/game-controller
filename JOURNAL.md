@@ -384,6 +384,12 @@ I'll start working on the schematic. I'll CAD the case/buttons before I look at 
 # November 13: More schematicing (55m)
 
 ### AO3400A
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/diagram.png" width=50% alt="Wiring diagram of the rumble motor circuit: ESP32-S3 SuperMini pin 10 through a 100 ohm resistor to the AO3400A gate, a 100k pull-down from gate to ground, the source to ground, and the drain to a coin vibration motor with a 1N5819 diode">
+<br>
+<sub>Motor diagram</sub>
+</p>
+
 The MOSFET looks something like this
 <p align="center">
 <img src="https://europe1.discourse-cdn.com/arduino/original/4X/e/5/e/e5ef127c7f1e1a50824bef1bb47ef4ed6ac8b01c.jpeg" width=40% alt="MOSFET low-side switch circuit with a 2.2k current-limiting resistor to the gate, a 10k pull-down resistor from gate to ground, and the source tied to ground">
@@ -395,6 +401,18 @@ The MOSFET looks something like this
 <br>
 <sub>Wired accelerometer</sub>
 </p>
+
+```JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical``` for the JST footprint
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/schottky-connection.png" width=50% alt="KiCad schematic close-up of a 1N5819 Schottky diode D1 between +3.3V and pin 1 of motor connector J1, with the cathode bar toward +3.3V">
+<br>
+<sub>Wired accelerometer</sub>
+</p>
+
+Looking back, I need to add a flyback diode to protect from the voltage spike generated when the motor switches off: a vibration motor is a coil, and when the MOSFET turns off, the motor tries to keep its current flowing and creates a voltage spike. The MOSFET’s built-in body diode points the wrong way to catch it, so a separate diode across the motor is needed.
+
+I'll use 1N5819 as a THT Schottky diode (```DO-41_SOD81_P10.16mm_Horizontal``` footprint). The side with the bar is the cathode (rotate it up).
 
 ### LIS3DH
 <p align="center">
@@ -412,7 +430,8 @@ Realized I was looking at C3 not S3 pinout, here's the right one:
 <br>
 </p>
 
-# November 16: More schematicing again again (1 hr 36m)
+# November 16: More schematicing again again (3 hr 52m)
+### More LIS3DH
 I have to add 4.7k resistors on SDA, also learned
 + In series: signal runs through resistor
 <p align="center">
@@ -466,7 +485,9 @@ Also reminder decoupling capacitor briefly discharges to supply that sudden curr
 <sub>No errors</sub>
 </p>
 
-Also the footprint has a weird name like PQFN50P300X300X100-16N.kicad_mod (I could rename)
+Also the footprint has a weird name like ```PQFN50P300X300X100-16N``` (I could rename)
+
+### KY-023
 
 We're just using pin headers instead of a joystick footprint. The joystick is GND, 5V, X (GPIO4), Y (GPIO5), Switch (GPIO6) so I wired the female pin headers accordingly.
 
@@ -474,4 +495,38 @@ Doesn't mean we have to supply 5V even though it's labeled so. Because X & Y axe
 
 Also confirming I'm using the Switch on the joystick as the B button, this is GPIO6. Also I'll use the ```PinSocket_1x05_P2.54mm_Horizontal``` footprint.
 
+# November 17: More schema again again (30m)
+
+### Push buttons/LEDs
+
 Time to work on the push buttons + their LEDs.
+
+I'll go with amber LEDs as that requires less energy and can work with a 680 ohm resistor, so I'll design the yellow toad controller. I'll use ```Button_Switch_THT:SW_PUSH_6mm``` for the push buttons, ```LED_SMD:LED_0603_1608Metric``` for the LEDs, and ```Resistor_SMD:R_0603_1608Metric``` for the resistors.
+
+Disregard the button on the joystick being B.
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/starting-LEDs.png" width=35% alt="KiCad schematic of an unconnected LED D2 in series with a 680 ohm resistor R3 to +3.3V, next to push button SW1 tied to ground">
+<br>
+</p>
+
+# November 19: Schematicing
+I'll wire the buttons like this (7 total)
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/button-wiring.png" width=35% alt="KiCad schematic of one button circuit: GPIO1 connects to push button SW1 to ground and to the LED D2 cathode, with the LED's anode through a 680 ohm resistor R3 to +3.3V">
+<br>
+</p>
+
+Here's the pinout for the 7 tactile switches & their LEDs:
+
+| Button | GPIO |
+|---|---|
+| A | 1 |
+| B | 2 |
+| 1 | 7 |
+| 2 | 11 |
+| Select (−) | 12 |
+| Home | 13 |
+| Start (+) | 3 |
+
+Schematic is done:
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/schematic.png" width=35% alt="Full KiCad schematic of the controller: ESP32-S3 SuperMini with labeled GPIOs, LIS3DH accelerometer on I2C with pull-ups and decoupling capacitors, AO3400A rumble motor driver with a 1N5819 diode, KY-023 joystick connector, and seven tactile switches (A, B, 1, 2, Select, Home, Start) each with an LED and 680 ohm resistor">
+<br>
+</p>
