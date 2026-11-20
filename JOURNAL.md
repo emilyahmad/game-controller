@@ -504,12 +504,16 @@ Time to work on the push buttons + their LEDs.
 I'll go with amber LEDs as that requires less energy and can work with a 680 ohm resistor, so I'll design the yellow toad controller. I'll use ```Button_Switch_THT:SW_PUSH_6mm``` for the push buttons, ```LED_SMD:LED_0603_1608Metric``` for the LEDs, and ```Resistor_SMD:R_0603_1608Metric``` for the resistors.
 
 Disregard the button on the joystick being B.
+
+<p align="center">
 <img src="https://github.com/emilyahmad/game-controller/blob/main/images/starting-LEDs.png" width=35% alt="KiCad schematic of an unconnected LED D2 in series with a 680 ohm resistor R3 to +3.3V, next to push button SW1 tied to ground">
 <br>
 </p>
 
-# November 19: Schematicing
+# November 19: Schematicing (1 hour)
 I'll wire the buttons like this (7 total)
+
+<p align="center">
 <img src="https://github.com/emilyahmad/game-controller/blob/main/images/button-wiring.png" width=35% alt="KiCad schematic of one button circuit: GPIO1 connects to push button SW1 to ground and to the LED D2 cathode, with the LED's anode through a 680 ohm resistor R3 to +3.3V">
 <br>
 </p>
@@ -527,6 +531,17 @@ Here's the pinout for the 7 tactile switches & their LEDs:
 | Start (+) | 3 |
 
 Schematic is done:
-<img src="https://github.com/emilyahmad/game-controller/blob/main/images/schematic.png" width=35% alt="Full KiCad schematic of the controller: ESP32-S3 SuperMini with labeled GPIOs, LIS3DH accelerometer on I2C with pull-ups and decoupling capacitors, AO3400A rumble motor driver with a 1N5819 diode, KY-023 joystick connector, and seven tactile switches (A, B, 1, 2, Select, Home, Start) each with an LED and 680 ohm resistor">
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/source/game-controller/game-controller.svg" width=35% alt="Full KiCad schematic of the controller: ESP32-S3 SuperMini with labeled GPIOs, LIS3DH accelerometer on I2C with pull-ups and decoupling capacitors, AO3400A rumble motor driver with a 1N5819 diode, KY-023 joystick connector, and seven tactile switches (A, B, 1, 2, Select, Home, Start) each with an LED and 680 ohm resistor">
+<br>
+</p>
+
+These are my footprint assignments, some changes I've made:
++ Swapped everything except the large components and the tactile switches to be assembled with the PCB
++ Swapped the 1N5819 diode with the SS14
++ Swapped the J1 for the SMD footprint I can have assembled ```Connector_JST:JST_PH_S2B-PH-SM4-TB_1x02-1MP_P2.00mm_Horizontal``` (coin motor) and J2 with ```Connector_JST:JST_PH_S5B-PH-SM4-TB_1x05-1MP_P2.00mm_Horizontal``` (joystick)
+
+<p align="center">
+<img src="https://github.com/emilyahmad/game-controller/blob/main/images/footprints.png" width=35% alt="Full KiCad schematic of the controller: ESP32-S3 SuperMini with labeled GPIOs, LIS3DH accelerometer on I2C with pull-ups and decoupling capacitors, AO3400A rumble motor driver with a 1N5819 diode, KY-023 joystick connector, and seven tactile switches (A, B, 1, 2, Select, Home, Start) each with an LED and 680 ohm resistor">
 <br>
 </p>
